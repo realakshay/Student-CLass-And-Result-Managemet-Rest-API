@@ -24,9 +24,10 @@ class StudentModel(db.Model):
         self.email=email
         self.department=department
         self.classid=classid
+        self.resultid=prn
 
     def json(self):
-        return {"prn":self.prn, "name":self.name, "mobile":self.mobile, "email":self.email, "department":self.department, "classId":self.classid}
+        return {"prn":self.prn, "name":self.name, "mobile":self.mobile, "email":self.email, "department":self.department, "classId":self.classid, "resultId":self.resultid}
     
     @classmethod
     def find_by_prn(cls,prn):
