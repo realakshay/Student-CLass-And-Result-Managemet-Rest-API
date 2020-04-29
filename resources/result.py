@@ -12,3 +12,12 @@ class ResultResource(Resource):
         if result:
             return result.json()
         return {"message":"not found"}
+    
+    def post(self, prn):
+        data=ResultResource.parser.parse_args()
+        result=ResultModel.find_by_prn(prn)
+        if result:
+            return {"message":"Already Exist"}
+        result=ResultModel(data['prn'],data['cgpa'])
+        result.insert_in_db()
+        return {"message":"Insert Success"}
