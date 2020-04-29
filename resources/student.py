@@ -17,3 +17,12 @@ class StudentResource(Resource):
         if student:
             return student.json()
         return {"message":"Not found"}
+    
+    def post(self,prn):
+        data=StudentResource.parser.parse_args()
+        student=StudentModel.find_by_prn(prn)
+        if student:
+            return {"message":"Already Exists"}
+        student=StudentModel(data['prn'], data['name'], data['mobile'], data['email'], data['department'], data['classid'])
+        student.insert_in_db()
+        return {"message":"Insert Success"}
