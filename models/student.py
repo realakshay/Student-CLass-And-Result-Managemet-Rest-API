@@ -10,9 +10,12 @@ class StudentModel(db.Model):
     mobile=db.Column(db.String(10), unique=True, nullable=False)
     email=db.Column(db.String(150), unique=True, nullable=False)
     department=db.Column(db.String(80),nullable=False)
+    
     classid=db.Column(db.Integer, db.ForeignKey('classes.id'))
+    resultid=db.Column(db.Integer, db.ForeignKey('results.prn'))
 
     classes=db.relationship('ClassModel')
+    results=db.relationship('ResultModel')
 
     def __init__(self, prn, name, mobile, email, department, classid):
         self.prn=prn
