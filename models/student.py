@@ -9,7 +9,7 @@ class StudentModel(db.Model):
     name=db.Column(db.String(50), nullable=False)
     mobile=db.Column(db.String(10), unique=True, nullable=False)
     email=db.Column(db.String(150), unique=True, nullable=False)
-    department=db.Column(db.String(80),nullable=False)
+    department=db.Column(db.String(80), nullable=False)
     
     classid=db.Column(db.Integer, db.ForeignKey('classes.id'))
     resultid=db.Column(db.Integer, db.ForeignKey('results.prn'))
