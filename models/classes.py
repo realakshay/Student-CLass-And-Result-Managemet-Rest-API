@@ -4,20 +4,18 @@ class ClassModel(db.Model):
 
     __tablename__="classes"
 
-    id=db.Column(db.Integer)
+    id=db.Column(db.Integer, primary_key=True)
     classname=db.Column(db.String(80), unique=True, nullable=False)
-    div=db.Column(db.String(10), nullable=False)
     cc=db.Column(db.String(80), nullable=False)
 
     students=db.relationship('StudentModel', lazy='dynamic')
 
-    def __init__(self, classname, div, cc):
+    def __init__(self, classname, cc):
         self.classname=classname
-        self.div=div
         self.cc=cc
     
     def json(self):
-        return {"classname":self.classname,"division":self.div, "Co-Ordinator":self.cc, "students":[x.json() for x in self.students.all()]}
+        return {"classname":self.classname, "Co-Ordinator":self.cc, "students":[x.json() for x in self.students.all()]}
     
     @classmethod
     def find_by_classname(cls,classname):
