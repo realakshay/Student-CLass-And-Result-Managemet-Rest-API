@@ -1,6 +1,9 @@
 from flask import Flask
 from flask_restful import Api
 from resources.user import UserResource
+from resources.student import StudentResource
+from resources.classes import ClassReource
+from resources.result import ResultResource
 
 app=Flask(__name__)
 api=Api(app)
@@ -13,6 +16,9 @@ def create_tables():
     db.create_all()
 
 api.add_resource(UserResource,'/register')
+api.add_resource(StudentResource,'/student/prn/<int:prn>')
+api.add_resource(ClassReource,'/class/<string:classname>')
+api.add_resource(ResultResource,'/result/prn/<int:prn>')
 
 if __name__ == "__main__":
     from db import db
