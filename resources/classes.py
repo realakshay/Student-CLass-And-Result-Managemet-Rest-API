@@ -21,3 +21,12 @@ class ClassReource(Resource):
         classes=ClassModel(data['classname'], data['cc'])
         classes.insert_in_db()
         return {"message":"Insert Success"}
+    
+    def put(self,classname):
+        data=ClassReource.parser.parse_args()
+        classes=ClassModel.find_by_classname(classname)
+        if classes:
+            classes.cc=data['cc']
+            classes.insert_in_db()
+            return {"message":"update success"}
+        return {"message":"not found for update"}
