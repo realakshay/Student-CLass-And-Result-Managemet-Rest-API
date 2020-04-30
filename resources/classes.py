@@ -1,4 +1,5 @@
 from flask_restful import Resource, reqparse
+from flask_jwt import jwt_required
 from models.classes import ClassModel
 
 class ClassReource(Resource):
@@ -31,6 +32,7 @@ class ClassReource(Resource):
             return {"message":"update success"}
         return {"message":"not found for update"}
     
+    @jwt_required()
     def delete(self,classname):
         classes=ClassModel.find_by_classname(classname)
         if classes:

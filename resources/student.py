@@ -1,4 +1,5 @@
 from flask_restful import Resource, reqparse
+from flask_jwt import jwt_required
 from models.student import StudentModel
 
 class StudentResource(Resource):
@@ -12,6 +13,7 @@ class StudentResource(Resource):
     parser.add_argument("department",type=str,required=True,help="Cannot be blank")
     parser.add_argument("classid",type=int,required=True,help="Cannot be blank")
 
+    @jwt_required()
     def get(self,prn):
         student=StudentModel.find_by_prn(prn)
         if student:
@@ -40,6 +42,7 @@ class StudentResource(Resource):
             return {"message":"Update success"}
         return {"message":"Not found for update"}
     
+    @jwt_required()
     def delete(self,prn):
         student=StudentModel.find_by_prn(prn)
         if student:
