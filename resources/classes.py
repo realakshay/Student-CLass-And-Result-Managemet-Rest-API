@@ -30,3 +30,10 @@ class ClassReource(Resource):
             classes.insert_in_db()
             return {"message":"update success"}
         return {"message":"not found for update"}
+    
+    def delete(self,classname):
+        classes=ClassModel.find_by_classname(classname)
+        if classes:
+            classes.delete_from_db()
+            return {"message":"delete success"}
+        return {"message":"not found for delete"}

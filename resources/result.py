@@ -32,3 +32,9 @@ class ResultResource(Resource):
         return {"message":"does not foun to update"}
     
     
+    def delete(self,prn):
+        result=ResultModel.find_by_prn(prn)
+        if result:
+            result.delete_from_db()
+            return {"message":"Delete success"}
+        return {"message":"Not found for delete"}

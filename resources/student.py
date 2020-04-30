@@ -39,3 +39,10 @@ class StudentResource(Resource):
             student.insert_in_db()
             return {"message":"Update success"}
         return {"message":"Not found for update"}
+    
+    def delete(self,prn):
+        student=StudentModel.find_by_prn(prn)
+        if student:
+            student.delete_from_db()
+            return {"message":"Delete success"}
+        return {"message":"Not found for delete"}
