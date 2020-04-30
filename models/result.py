@@ -1,3 +1,5 @@
+from models.student import StudentModel
+from models.classes import ClassModel
 from db import db
 
 class ResultModel(db.Model):
@@ -19,6 +21,7 @@ class ResultModel(db.Model):
     
     @classmethod
     def find_by_prn(cls,prn):
+        #return cls.query.join(StudentModel, cls.prn==StudentModel.prn).join(ClassModel, StudentModel.classid==ClassModel.id).first()
         return cls.query.filter_by(prn=prn).first()
     
     def insert_in_db(self):

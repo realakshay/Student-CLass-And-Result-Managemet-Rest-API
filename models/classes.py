@@ -16,7 +16,7 @@ class ClassModel(db.Model):
     
     def json(self):
         return {"classname":self.classname, "Co-Ordinator":self.cc, "students":[x.json() for x in self.students.all()]}
-    
+
     @classmethod
     def find_by_classname(cls,classname):
         return cls.query.filter_by(classname=classname).first()
