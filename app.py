@@ -4,12 +4,17 @@ from resources.user import UserResource
 from resources.student import StudentResource
 from resources.classes import ClassReource
 from resources.result import ResultResource
+from flask_jwt import JWT
+from security import authenticate, identity
 
 app=Flask(__name__)
 api=Api(app)
 app.secret_key="akshay"
+jwt=JWT(app, authenticate, identity)
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///data.db'
+
 
 @app.before_first_request
 def create_tables():
