@@ -6,7 +6,7 @@ class ResultModel(db.Model):
 
     __tablename__="results"
 
-    id=db.Column(db.Integer)
+    id=db.Column(db.Integer, primary_key=True)
     prn=db.Column(db.Integer, primary_key=True)
     cgpa=db.Column(db.Float, nullable=False)
 
