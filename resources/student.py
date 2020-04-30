@@ -26,3 +26,16 @@ class StudentResource(Resource):
         student=StudentModel(data['prn'], data['name'], data['mobile'], data['email'], data['department'], data['classid'])
         student.insert_in_db()
         return {"message":"Insert Success"}
+    
+    def put(self,prn):
+        data=StudentResource.parser.parse_args()
+        student=StudentModel.find_by_prn(prn)
+        if student:
+            student.name=data['name']
+            student.mobile=data['mobile']
+            student.email=data['email']
+            student.department=data['department']
+            student.classid=data['classid']
+            student.insert_in_db()
+            return {"message":"Update success"}
+        return {"message":"Not found for update"}
