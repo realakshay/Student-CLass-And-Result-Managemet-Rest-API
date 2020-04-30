@@ -7,8 +7,8 @@ class StudentModel(db.Model):
     id=db.Column(db.Integer)
     prn=db.Column(db.Integer, primary_key=True)
     name=db.Column(db.String(50), nullable=False)
-    mobile=db.Column(db.String(10), unique=True, nullable=False)
-    email=db.Column(db.String(150), unique=True, nullable=False)
+    mobile=db.Column(db.String(10), nullable=False)
+    email=db.Column(db.String(150), nullable=False)
     department=db.Column(db.String(80), nullable=False)
     
     classid=db.Column(db.Integer, db.ForeignKey('classes.id'))
