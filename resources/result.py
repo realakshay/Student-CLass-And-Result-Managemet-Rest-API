@@ -43,4 +43,9 @@ class ResultResource(Resource):
 class ResultListResource(Resource):
 
     def get(self):
+        return {"Result":[x.show() for x in ResultModel.query.all()]}
+
+class ResultListWithStudentDetails(Resource):
+    def get(self):
         return {"Result":[x.json() for x in ResultModel.query.all()]}
+
