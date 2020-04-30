@@ -19,6 +19,9 @@ class ResultModel(db.Model):
     def json(self):
         return {"prn":self.prn, "cgpa":self.cgpa, "student":[x.json() for x in self.students.all()]}
     
+    def show(self):
+        return {"prn":self.prn, "cgpa":self.cgpa}
+    
     @classmethod
     def find_by_prn(cls,prn):
         #return cls.query.join(StudentModel, cls.prn==StudentModel.prn).join(ClassModel, StudentModel.classid==ClassModel.id).first()

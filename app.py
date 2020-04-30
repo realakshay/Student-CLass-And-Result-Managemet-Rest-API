@@ -1,9 +1,9 @@
 from flask import Flask
 from flask_restful import Api
 from resources.user import UserResource
-from resources.student import StudentResource
-from resources.classes import ClassReource
-from resources.result import ResultResource
+from resources.student import StudentResource, StudentListResource
+from resources.classes import ClassResource, ClassListResource
+from resources.result import ResultResource, ResultListResource
 from flask_jwt import JWT
 from security import authenticate, identity
 
@@ -22,8 +22,11 @@ def create_tables():
 
 api.add_resource(UserResource,'/register')
 api.add_resource(StudentResource,'/student/prn/<int:prn>')
-api.add_resource(ClassReource,'/class/<string:classname>')
+api.add_resource(ClassResource,'/class/<string:classname>')
 api.add_resource(ResultResource,'/result/prn/<int:prn>')
+api.add_resource(StudentListResource,'/students')
+api.add_resource(ClassListResource,'/classes')
+api.add_resource(ResultListResource,'/results')
 
 if __name__ == "__main__":
     from db import db

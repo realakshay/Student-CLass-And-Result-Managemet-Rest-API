@@ -39,3 +39,8 @@ class ResultResource(Resource):
             result.delete_from_db()
             return {"message":"Delete success"}
         return {"message":"Not found for delete"}
+    
+class ResultListResource(Resource):
+
+    def get(self):
+        return {"Result":[x.json() for x in ResultModel.query.all()]}

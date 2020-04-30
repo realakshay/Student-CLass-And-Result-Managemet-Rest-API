@@ -49,3 +49,8 @@ class StudentResource(Resource):
             student.delete_from_db()
             return {"message":"Delete success"}
         return {"message":"Not found for delete"}
+
+class StudentListResource(Resource):
+
+    def get(self):
+        return {"Students":[x.json() for x in StudentModel.find_all()]}
