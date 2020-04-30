@@ -21,3 +21,14 @@ class ResultResource(Resource):
         result=ResultModel(data['prn'],data['cgpa'])
         result.insert_in_db()
         return {"message":"Insert Success"}
+    
+    def put(self,prn):
+        data=ResultResource.parser.parse_args()
+        result=ResultModel.find_by_prn(prn)
+        if result:
+            result.cgpa=data['cgpa']
+            result.insert_in_db()
+            return result.json()
+        return {"message":"does not foun to update"}
+    
+    
