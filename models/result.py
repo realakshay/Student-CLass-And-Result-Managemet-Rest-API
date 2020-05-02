@@ -1,5 +1,3 @@
-from models.student import StudentModel
-from models.classes import ClassModel
 from db import db
 
 class ResultModel(db.Model):

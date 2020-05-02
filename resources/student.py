@@ -53,4 +53,9 @@ class StudentResource(Resource):
 class StudentListResource(Resource):
 
     def get(self):
-        return {"Students":[x.json() for x in StudentModel.find_all()]}
+        result=StudentModel.get_all()
+        students=[]
+        for i in result:
+            l={"Name":i[0], "Mobile":i[1], "Email":i[2], "Department":i[3], "Class Co.":i[4], "cgpa":i[5]}
+            students.append(l)
+        return {"Students":students}

@@ -1,4 +1,6 @@
 from db import db
+from models.classes import ClassModel
+from models.result import ResultModel
 
 class StudentModel(db.Model):
 
@@ -28,6 +30,9 @@ class StudentModel(db.Model):
 
     def json(self):
         return {"prn":self.prn, "name":self.name, "mobile":self.mobile, "email":self.email, "department":self.department, "classId":self.classid, "resultId":self.resultid}
+
+    def show(self):
+        return {"name":self.name,"mobile":self.mobile, "email":self.email, "department":self.department}
     
     @classmethod
     def find_by_prn(cls,prn):
@@ -52,3 +57,8 @@ class StudentModel(db.Model):
     @classmethod
     def find_all(cls):
         return cls.query.all()
+
+    @classmethod
+    def get_all(cls):
+        shall= db.session.query(StudentModel.name,StudentModel.mobile,StudentModel.email, StudentModel.department,ClassModel.cc,ResultModel.cgpa).join(ClassModel).join(ResultModel).order_by(StudentModel.name,StudentModel.department).all()
+        return shall
