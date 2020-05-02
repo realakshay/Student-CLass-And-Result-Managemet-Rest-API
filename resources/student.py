@@ -1,5 +1,5 @@
 from flask_restful import Resource, reqparse
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import jwt_required, get_jwt_claims
 from models.student import StudentModel
 
 class StudentResource(Resource):
@@ -44,6 +44,9 @@ class StudentResource(Resource):
     
     @jwt_required
     def delete(self,prn):
+        claims=get_jwt_claims()
+        if not claims['is_admin']:
+            return {"message":"Admin priviledge required"},401
         student=StudentModel.find_by_prn(prn)
         if student:
             student.delete_from_db()

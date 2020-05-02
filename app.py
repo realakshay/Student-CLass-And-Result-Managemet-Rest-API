@@ -22,6 +22,14 @@ app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///data.db'
 def create_tables():
     db.create_all()
 
+@jwt.user_claims_loader
+def add_claims_to_jwt(identity):
+    if identity==1:
+        return {"is_admin":True}
+    return {"is_admin":False}
+
+
+
 api.add_resource(UserResource,'/register')
 api.add_resource(UserLoginResource,'/login')
 api.add_resource(StudentResource,'/student/prn/<int:prn>')
