@@ -1,5 +1,5 @@
 from flask_restful import Resource, reqparse
-from flask_jwt import jwt_required
+from flask_jwt_extended import jwt_required
 from models.student import StudentModel
 
 class StudentResource(Resource):
@@ -13,7 +13,7 @@ class StudentResource(Resource):
     parser.add_argument("department",type=str,required=True,help="Cannot be blank")
     parser.add_argument("classid",type=int,required=True,help="Cannot be blank")
 
-    @jwt_required()
+    @jwt_required
     def get(self,prn):
         student=StudentModel.find_by_prn(prn)
         if student:
@@ -42,7 +42,7 @@ class StudentResource(Resource):
             return {"message":"Update success"}
         return {"message":"Not found for update"}
     
-    @jwt_required()
+    @jwt_required
     def delete(self,prn):
         student=StudentModel.find_by_prn(prn)
         if student:
@@ -52,10 +52,11 @@ class StudentResource(Resource):
 
 class StudentListResource(Resource):
 
+    @jwt_required
     def get(self):
         result=StudentModel.get_all()
         students=[]
         for i in result:
-            l={"Name":i[0], "Mobile":i[1], "Email":i[2], "Department":i[3], "Class Co.":i[4], "cgpa":i[5]}
+            l={"PRN":i[0],"Name":i[1], "Mobile":i[2], "Email":i[3], "Department":i[4],"Class":i[5], "Class Co.":i[6], "cgpa":i[7]}
             students.append(l)
         return {"Students":students}

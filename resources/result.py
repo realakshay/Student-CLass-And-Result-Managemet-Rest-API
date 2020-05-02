@@ -1,5 +1,5 @@
 from flask_restful import Resource, reqparse
-from flask_jwt import jwt_required
+from flask_jwt_extended import jwt_required
 from models.result import ResultModel
 
 class ResultResource(Resource):
@@ -32,7 +32,7 @@ class ResultResource(Resource):
             return result.json()
         return {"message":"does not foun to update"}
     
-    @jwt_required()
+    @jwt_required
     def delete(self,prn):
         result=ResultModel.find_by_prn(prn)
         if result:

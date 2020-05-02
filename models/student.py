@@ -60,5 +60,5 @@ class StudentModel(db.Model):
 
     @classmethod
     def get_all(cls):
-        shall= db.session.query(StudentModel.name,StudentModel.mobile,StudentModel.email, StudentModel.department,ClassModel.cc,ResultModel.cgpa).join(ClassModel).join(ResultModel).order_by(StudentModel.name,StudentModel.department).all()
+        shall= db.session.query(StudentModel.prn,StudentModel.name,StudentModel.mobile,StudentModel.email, StudentModel.department,ClassModel.classname,ClassModel.cc,ResultModel.cgpa).join(ClassModel).join(ResultModel).order_by(StudentModel.prn,StudentModel.department).all()
         return shall
