@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask_restful import Api
 from resources.user import UserResource, UserLoginResource, TokenRefresh
 from resources.student import StudentResource, StudentListResource
@@ -7,6 +7,7 @@ from resources.result import ResultResource, ResultListResource, ResultListWithS
 #from flask_jwt import JWT
 from flask_jwt_extended import JWTManager
 from security import authenticate, identity
+from blacklist import BLACKLIST
 
 app=Flask(__name__)
 api=Api(app)
@@ -16,7 +17,8 @@ jwt=JWTManager(app)
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///data.db'
-
+app.config['JWT_BLACKLIST_ENABLED']=True
+app.config['JWT_BLACKLIST_TOKEN_CHECKS']=['access','refresh']
 
 @app.before_first_request           #Create table if not created before request
 def create_tables():
@@ -27,6 +29,15 @@ def add_claims_to_jwt(identity):
     if identity==1:
         return {"is_admin":True}
     return {"is_admin":False}
+
+@jwt.token_in_blacklist_loader
+def check_if_token_in_blacklist(decrypted_token):
+    return decrypted_token['identity'] in BLACKLIST
+
+
+@jwt.revoked_token_loader
+def revoked_token_callback():
+    return jsonify({'description':"The token has been revoked", 'error':"token_revoked"}),401
 
 
 
