@@ -1,5 +1,5 @@
 from flask_restful import Resource, reqparse
-from flask_jwt_extended import jwt_required, get_jwt_claims, jwt_optional, get_jwt_identity
+from flask_jwt_extended import jwt_required, get_jwt_claims, jwt_optional, get_jwt_identity,fresh_jwt_required
 from models.student import StudentModel
 
 class StudentResource(Resource):
@@ -20,6 +20,7 @@ class StudentResource(Resource):
             return student.json()
         return {"message":"Not found"}
     
+    @fresh_jwt_required
     def post(self,prn):
         data=StudentResource.parser.parse_args()
         student=StudentModel.find_by_prn(prn)

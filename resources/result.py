@@ -1,5 +1,5 @@
 from flask_restful import Resource, reqparse
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import jwt_required,fresh_jwt_required
 from models.result import ResultModel
 
 class ResultResource(Resource):
@@ -8,6 +8,7 @@ class ResultResource(Resource):
     parser.add_argument("prn", type=int, required=True, help="Cannot be blank")
     parser.add_argument("cgpa", type=float, required=True, help="Cannot be blank")
 
+    @fresh_jwt_required
     def get(self, prn):
         result=ResultModel.find_by_prn(prn)
         if result:
