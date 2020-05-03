@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_restful import Api
-from resources.user import UserResource, UserLoginResource
+from resources.user import UserResource, UserLoginResource, TokenRefresh
 from resources.student import StudentResource, StudentListResource
 from resources.classes import ClassResource, ClassListResource
 from resources.result import ResultResource, ResultListResource, ResultListWithStudentDetails
@@ -32,6 +32,7 @@ def add_claims_to_jwt(identity):
 
 api.add_resource(UserResource,'/register')
 api.add_resource(UserLoginResource,'/login')
+api.add_resource(TokenRefresh,'/refresh')
 api.add_resource(StudentResource,'/student/prn/<int:prn>')
 api.add_resource(ClassResource,'/class/<string:classname>')
 api.add_resource(ResultResource,'/result/prn/<int:prn>')
